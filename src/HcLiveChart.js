@@ -2,6 +2,7 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>
     :host {
+		--margin: 0.5rem;
         display: flex;
         height: auto;
         width: auto;
@@ -15,9 +16,9 @@ template.innerHTML = `
     ::slotted(textarea) {
         font-family: monospace;
         font-size: 1.2rem;
-        width: calc(100% - 1rem);
-        height: calc(100% - 1rem);
-        padding: 0.5rem;
+        width: calc(100% - 2 * var(--margin));
+        height: calc(100% - 2 * var(--margin));
+        padding: var(--margin);
         margin: 0;
         border: 0;
         outline: none;
@@ -26,6 +27,17 @@ template.innerHTML = `
         flex: 1;
         border: 1px solid black;
     }
+    .jsError {
+    	position: absolute;
+    	margin-top: calc(-1rem - var(--margin));
+    	right: 50%;
+    	background: rgba(255,0,0,0.7);
+    	color: white;
+    	padding: var(--margin);
+    }
+    .hidden {
+    	display: none;
+    }
     
     </style>
 
@@ -33,6 +45,7 @@ template.innerHTML = `
     <div slot="chart" class="chart">
         <canvas style="height: 100%;"></canvas>
     </div>
+	<div class="jsError hidden"></div>
 `;
 
 const chartColors = Object.values({
@@ -60,6 +73,9 @@ class HcLiveChart extends HTMLElement {
     }
     get $chart() {
         return this._selectInShadowRoot('canvas');
+    }
+    get $jsError() {
+        return this._selectInShadowRoot('.jsError');
     }
     get editedSourceCode() {
         return this.$sourceCode.value;
@@ -98,7 +114,15 @@ class HcLiveChart extends HTMLElement {
         });
     }
     evaluateAndRerenderChart() {
-        const result = (new Function(this.editedSourceCode))();
+    	let result;
+    	try {
+	        result = (new Function(this.editedSourceCode))();
+	        this.$jsError.innerHTML = "";
+	        this.$jsError.classList.add('hidden');
+    	} catch (e) {
+    		this.$jsError.innerHTML = e;
+	        this.$jsError.classList.remove('hidden');
+    	}
         this.updateChartData(result);
     }
     updateChartData(data) {
