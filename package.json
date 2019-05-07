@@ -1,0 +1,26 @@
+{
+  "name": "hc-live-chart",
+  "version": "1.0.0",
+  "description": "A minimal editor that can display it's result in a chart in real-time.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "start": "ws --cors.origin=* --port 9898",
+    "test": "npm run _test",
+    "build": "npm run _build:component",
+    "_test": "kavun {scripts,src}/*.spec.js --reporter=minimal",
+    "_build:component": "parcel build src/HcLiveChart.js --no-cache --no-source-maps --experimental-scope-hoisting"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "esm": "^3.0.74",
+    "hamjest": "^3.2.0",
+    "hamjest-spy": "^4.0.0",
+    "local-web-server": "^2.6.0",
+    "parcel-bundler": "^1.9.7",
+    "kavun": "^3.0.0"
+  }
+}
