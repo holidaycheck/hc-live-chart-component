@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<title>HC Live Chart</title>
+
+<script type="module" src="../src/HcLiveChart.js"></script>
+<style>
+  body {
+    font-family: Verdana;
+  }
+</style>
+<body>
+  <a href="index.html">index.html</a>
+
+  <hc-live-chart>
+    <textarea slot="sourceCode">
+const resources = window.performance.getEntriesByType('resource');
+return resources.map(r => ({key: r.name, value: r.transferSize}));
+    </textarea>
+  </hc-live-chart>
+</body>
