@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "ws --cors.origin=* --port 9898",
-    "test": "npm run _test",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "build": "npm run _build:component",
     "_test": "kavun {scripts,src}/*.spec.js --reporter=minimal",
     "_build:component": "parcel build src/HcLiveChart.js --no-cache --no-source-maps --experimental-scope-hoisting",
