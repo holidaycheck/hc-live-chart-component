@@ -16,6 +16,7 @@ template.innerHTML = `
         font-family: monospace;
         font-size: 1.2rem;
         width: calc(100% - 1rem);
+        height: calc(100% - 1rem);
         padding: 0.5rem;
         margin: 0;
         border: 0;
@@ -30,12 +31,19 @@ template.innerHTML = `
 
     <slot name="sourceCode"></slot>
     <div slot="chart" class="chart">
-        <canvas height=100></canvas>
+        <canvas style="height: 100%;"></canvas>
     </div>
 `;
 
-let lastQuestion = '';
-let numberOfAnswersLoaded = 0;
+const chartColors = Object.values({
+	hcblue: 'rgba(0, 88, 163, 1.000)',
+	hcyellow: 'rgba(251, 215, 58, 1.000)',
+	hcfishorange: 'rgba(255, 88, 0, 1.000)',
+	hcdarkblue: 'rgba(2, 57, 103, 1.000)',
+	hcawardblue: 'rgba(47, 160, 196, 1.000)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(201, 203, 207)'
+});
 
 class HcLiveChart extends HTMLElement {
     constructor() {
@@ -65,7 +73,7 @@ class HcLiveChart extends HTMLElement {
         });
     }
     createChart() {
-        this.chartData = {labels: [], datasets: [{}]};
+        this.chartData = {labels: [], datasets: [{backgroundColor: chartColors}]};
         this.chart = new Chart(this.$chart, {
             type: 'horizontalBar',
             data: this.chartData,
@@ -94,7 +102,6 @@ class HcLiveChart extends HTMLElement {
         this.updateChartData(result);
     }
     updateChartData(data) {
-console.log(data);        
         const chartable = this.chartData;
         chartable.labels = data.map(d => d.key);
         //chartable.datasets[0].label = '# ???';
