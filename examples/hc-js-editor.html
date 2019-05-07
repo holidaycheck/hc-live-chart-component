@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>hc-js-editor</title>
+  <script type="module" src="../src/HcJsEditor.js"></script>
+</head>
+<body>
+  <h1>hc-js-editor web component</h1>
+
+  <p>
+    This is a simple JS editor component, that is isolated out of the hc-live-chart
+    component, in order to simpler maintain this component separately.
+  </p>
+
+  <h2>The element rendered without any data</h2>
+  <p>
+    before the editor
+    <hc-js-editor style="width: 30%; height: 20%;">
+      console.log(1);
+    </hc-js-editor>
+    after the editor
+    <button onclick="copySourcecode()">Get out source code</button>
+    The sourcecode read via the &lt;hc-js-editor&gt; attribute <em>sourceCode</em>
+    <pre id="read-source-code"></pre>
+    <script>
+        const copySourcecode = () => {
+            const source = document.querySelector('hc-js-editor').getAttribute('sourceCode');
+console.log("source= ", source);            
+            document.querySelector('#read-source-code').innerHTML = source;
+        };
+    </script>
+  </p>
+</body>
+</html>
