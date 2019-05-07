@@ -5,5 +5,5 @@
 # version 1
 - [ ] show errors in JS
 - [x] make the labels easier to read when they are long - shortened labels to 30chars
-- [ ] build + deploy via travis
+- [x] build + deploy via travis
 - [ ] 
