@@ -1,3 +1,5 @@
+import './HcChart.js';
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -43,20 +45,10 @@ template.innerHTML = `
 
     <slot name="sourceCode"></slot>
     <div slot="chart" class="chart">
-        <canvas style="height: 100%;"></canvas>
+        <hc-chart style="height: 100%;"></hc-chart>
     </div>
 	<div class="jsError hidden"></div>
 `;
-
-const chartColors = Object.values({
-	hcblue: 'rgba(0, 88, 163, 1.000)',
-	hcyellow: 'rgba(251, 215, 58, 1.000)',
-	hcfishorange: 'rgba(255, 88, 0, 1.000)',
-	hcdarkblue: 'rgba(2, 57, 103, 1.000)',
-	hcawardblue: 'rgba(47, 160, 196, 1.000)',
-	purple: 'rgb(153, 102, 255)',
-	grey: 'rgb(201, 203, 207)'
-});
 
 class HcLiveChart extends HTMLElement {
     constructor() {
@@ -72,7 +64,7 @@ class HcLiveChart extends HTMLElement {
         return slot.assignedNodes()[0];
     }
     get $chart() {
-        return this._selectInShadowRoot('canvas');
+        return this._selectInShadowRoot('hc-chart');
     }
     get $jsError() {
         return this._selectInShadowRoot('.jsError');
@@ -81,56 +73,26 @@ class HcLiveChart extends HTMLElement {
         return this.$sourceCode.value;
     }
     connectedCallback() {
-        Chart.defaults.global.animation.duration = 100;
-        this.createChart();
         this.evaluateAndRerenderChart();
         this.$sourceCode.addEventListener('keyup', () => {
             this.evaluateAndRerenderChart();
-        });
-    }
-    createChart() {
-        this.chartData = {labels: [], datasets: [{backgroundColor: chartColors}]};
-        this.chart = new Chart(this.$chart, {
-            type: 'horizontalBar',
-            data: this.chartData,
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        },
-                    }],
-                    xAxes: [{
-                        barPercentage: 0.5,
-                        barThickness: 6,
-                        maxBarThickness: 8,
-                        minBarLength: 2,
-                        gridLines: {
-                            offsetGridLines: true
-                        },
-                    }]
-                }
-            }
         });
     }
     evaluateAndRerenderChart() {
     	let result;
     	try {
 	        result = (new Function(this.editedSourceCode))();
-	        this.$jsError.innerHTML = "";
-	        this.$jsError.classList.add('hidden');
     	} catch (e) {
     		this.$jsError.innerHTML = e;
 	        this.$jsError.classList.remove('hidden');
+	        return;
     	}
+		this.$jsError.innerHTML = "";
+		this.$jsError.classList.add('hidden');
         this.updateChartData(result);
     }
     updateChartData(data) {
-        const chartable = this.chartData;
-        chartable.labels = data.map(({key}) => key.length > 30 ? ('...' + key.substring(key.length-30)) : key);
-        //chartable.datasets[0].label = '# ???';
-        chartable.datasets[0].data = data.map(d => d.value);
-        this.chart.update();
+        this.$chart.updateChartData(data);
     }
 }
 

@@ -5,7 +5,7 @@ template.innerHTML = `
     	display: block;
     }
     </style>
-    <canvas style="height: 100px; width: 100px;"></canvas>
+    <canvas></canvas>
 `;
 
 const chartColors = Object.values({
@@ -24,11 +24,9 @@ class HcChart extends HTMLElement {
         const root = this.attachShadow({mode: 'open'});
         root.appendChild(template.content.cloneNode(true));
     }
-
     _selectInShadowRoot(selector) {
         return this.shadowRoot && this.shadowRoot.querySelector(selector);
     }
-
     get $chart() {
         return this._selectInShadowRoot('canvas');
     }
@@ -62,7 +60,11 @@ class HcChart extends HTMLElement {
             }
         });
     }
-    updateChartData() {
+    updateChartData(data) {
+        const chartable = this.chartData;
+        chartable.labels = data.map(({key}) => key.length > 30 ? ('...' + key.substring(key.length-30)) : key);
+        //chartable.datasets[0].label = '# ???';
+        chartable.datasets[0].data = data.map(d => d.value);
         this.chart.update();
     }
 }
