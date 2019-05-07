@@ -82,7 +82,7 @@ class HcLiveChart extends HTMLElement {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true
-                        }
+                        },
                     }],
                     xAxes: [{
                         barPercentage: 0.5,
@@ -91,7 +91,7 @@ class HcLiveChart extends HTMLElement {
                         minBarLength: 2,
                         gridLines: {
                             offsetGridLines: true
-                        }
+                        },
                     }]
                 }
             }
@@ -103,7 +103,7 @@ class HcLiveChart extends HTMLElement {
     }
     updateChartData(data) {
         const chartable = this.chartData;
-        chartable.labels = data.map(d => d.key);
+        chartable.labels = data.map(({key}) => key.length > 30 ? ('...' + key.substring(key.length-30)) : key);
         //chartable.datasets[0].label = '# ???';
         chartable.datasets[0].data = data.map(d => d.value);
         this.chart.update();
