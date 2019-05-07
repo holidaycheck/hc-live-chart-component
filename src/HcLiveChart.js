@@ -29,7 +29,9 @@ template.innerHTML = `
     </style>
 
     <slot name="sourceCode"></slot>
-    <div slot="chart" class="chart">the chart</div>
+    <div slot="chart" class="chart">
+        <canvas height=100></canvas>
+    </div>
 `;
 
 let lastQuestion = '';
@@ -49,20 +51,55 @@ class HcLiveChart extends HTMLElement {
         return slot.assignedNodes()[0];
     }
     get $chart() {
-        return this._selectInShadowRoot('[slot=chart]');
+        return this._selectInShadowRoot('canvas');
     }
     get editedSourceCode() {
         return this.$sourceCode.value;
     }
     connectedCallback() {
+        Chart.defaults.global.animation.duration = 100;
+        this.createChart();
         this.evaluateAndRerenderChart();
         this.$sourceCode.addEventListener('keyup', () => {
             this.evaluateAndRerenderChart();
         });
     }
+    createChart() {
+        this.chartData = {labels: [], datasets: [{}]};
+        this.chart = new Chart(this.$chart, {
+            type: 'horizontalBar',
+            data: this.chartData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        barPercentage: 0.5,
+                        barThickness: 6,
+                        maxBarThickness: 8,
+                        minBarLength: 2,
+                        gridLines: {
+                            offsetGridLines: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
     evaluateAndRerenderChart() {
         const result = (new Function(this.editedSourceCode))();
-        this.$chart.innerHTML = JSON.stringify(result);
+        this.updateChartData(result);
+    }
+    updateChartData(data) {
+console.log(data);        
+        const chartable = this.chartData;
+        chartable.labels = data.map(d => d.key);
+        //chartable.datasets[0].label = '# ???';
+        chartable.datasets[0].data = data.map(d => d.value);
+        this.chart.update();
     }
 }
 
