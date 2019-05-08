@@ -34,6 +34,9 @@ class HcJsEditor extends HTMLElement {
         this.setAttribute('sourceCode', this.$editor.value);
         this.$editor.addEventListener('keyup', () => {
             this.setAttribute('sourceCode', this.$editor.value);
+            const eventType = 'change';
+            const event = new CustomEvent(eventType, {detail: {type: eventType, sourceCode: this.$editor.value}});
+            this.dispatchEvent(event)
         });
     }
 }

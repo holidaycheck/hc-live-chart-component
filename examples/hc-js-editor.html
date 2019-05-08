@@ -17,17 +17,22 @@
   <p>
     before the editor
     <hc-js-editor style="width: 30%; height: 100px;">
-console.log(1);
+() => console.log(1);
     </hc-js-editor>
+    <pre id="event-log"></pre>
     after the editor<br/>
     <button onclick="copySourcecode()">Get out source code</button>
     The sourcecode read via the &lt;hc-js-editor&gt; attribute <em>sourceCode</em>
     <pre id="read-source-code" style="background: lightyellow;"></pre>
     <script>
+        const $editor = document.querySelector('hc-js-editor');
         const copySourcecode = () => {
-            const source = document.querySelector('hc-js-editor').getAttribute('sourceCode');
+            const source = $editor.getAttribute('sourceCode');
             document.querySelector('#read-source-code').innerHTML = source;
         };
+        $editor.addEventListener('change', (e) => {
+            document.querySelector('#event-log').innerHTML = `js-editor fired "change" event: ${JSON.stringify({detail: e.detail})}`;
+        });
     </script>
   </p>
 </body>
