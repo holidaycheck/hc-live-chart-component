@@ -16,8 +16,8 @@
   <h2>The element rendered without any data</h2>
   <p>
     before the editor
-    <hc-js-editor style="width: 30%; height: 20%;">
-      console.log(1);
+    <hc-js-editor style="width: 30%; height: 100px;">
+console.log(1);
     </hc-js-editor>
     after the editor
     <button onclick="copySourcecode()">Get out source code</button>
@@ -26,7 +26,6 @@
     <script>
         const copySourcecode = () => {
             const source = document.querySelector('hc-js-editor').getAttribute('sourceCode');
-console.log("source= ", source);            
             document.querySelector('#read-source-code').innerHTML = source;
         };
     </script>
