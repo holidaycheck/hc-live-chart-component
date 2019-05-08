@@ -1,4 +1,5 @@
 import './HcChart.js';
+import './HcJsEditor.js';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -43,7 +44,7 @@ template.innerHTML = `
     
     </style>
 
-    <slot name="sourceCode"></slot>
+    <hc-js-editor></hc-js-editor>
     <div slot="chart" class="chart">
         <hc-chart style="height: 100%;"></hc-chart>
     </div>
@@ -59,9 +60,8 @@ class HcLiveChart extends HTMLElement {
     _selectInShadowRoot(selector) {
         return this.shadowRoot && this.shadowRoot.querySelector(selector);
     }
-    get $sourceCode() {
-        const slot = this._selectInShadowRoot('slot[name=sourceCode]');
-        return slot.assignedNodes()[0];
+    get $jsEditor() {
+        return this._selectInShadowRoot('hc-js-editor');
     }
     get $chart() {
         return this._selectInShadowRoot('hc-chart');
@@ -69,19 +69,16 @@ class HcLiveChart extends HTMLElement {
     get $jsError() {
         return this._selectInShadowRoot('.jsError');
     }
-    get editedSourceCode() {
-        return this.$sourceCode.value;
-    }
     connectedCallback() {
-        this.evaluateAndRerenderChart();
-        this.$sourceCode.addEventListener('keyup', () => {
-            this.evaluateAndRerenderChart();
+        this.$jsEditor.addEventListener('change', ({detail}) => {
+            this.evaluateAndRerenderChart(detail.sourceCode);
         });
+        this.$jsEditor.setSourceCode(this.innerHTML);
     }
-    evaluateAndRerenderChart() {
+    evaluateAndRerenderChart(editedSourceCode) {
     	let result;
     	try {
-	        result = (new Function(this.editedSourceCode))();
+	        result = (new Function(editedSourceCode))();
     	} catch (e) {
     		this.$jsError.innerHTML = e;
 	        this.$jsError.classList.remove('hidden');
