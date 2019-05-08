@@ -19,10 +19,10 @@
     <hc-js-editor style="width: 30%; height: 100px;">
 console.log(1);
     </hc-js-editor>
-    after the editor
+    after the editor<br/>
     <button onclick="copySourcecode()">Get out source code</button>
     The sourcecode read via the &lt;hc-js-editor&gt; attribute <em>sourceCode</em>
-    <pre id="read-source-code"></pre>
+    <pre id="read-source-code" style="background: lightyellow;"></pre>
     <script>
         const copySourcecode = () => {
             const source = document.querySelector('hc-js-editor').getAttribute('sourceCode');
