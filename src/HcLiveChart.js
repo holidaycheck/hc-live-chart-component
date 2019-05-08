@@ -11,22 +11,16 @@ template.innerHTML = `
         width: auto;
         justify-content: center;
     }
-    slot[name=sourceCode] {
-        display: block;
+    hc-js-editor {
         flex: 1;
         border: 1px solid black;
-    }
-    ::slotted(textarea) {
+        
         font-family: monospace;
         font-size: 1.2rem;
-        width: calc(100% - 2 * var(--margin));
-        height: calc(100% - 2 * var(--margin));
-        padding: var(--margin);
-        margin: 0;
-        border: 0;
-        outline: none;
+        width: 100%;
+        height: 100%;
     }
-    .chart {
+    hc-chart {
         flex: 1;
         border: 1px solid black;
     }
@@ -45,9 +39,7 @@ template.innerHTML = `
     </style>
 
     <hc-js-editor></hc-js-editor>
-    <div slot="chart" class="chart">
-        <hc-chart style="height: 100%;"></hc-chart>
-    </div>
+	<hc-chart style="height: 100%;"></hc-chart>
 	<div class="jsError hidden"></div>
 `;
 
