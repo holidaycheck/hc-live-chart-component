@@ -30,7 +30,7 @@ class HcJsEditor extends HTMLElement {
         return this._selectInShadowRoot('textarea');
     }
     connectedCallback() {
-        this.$editor.value = this.innerHTML;
+        this.$editor.value = this._ensureCharsAreNotHtmlEncoded(this.innerHTML);
         this.setAttribute('sourceCode', this.$editor.value);
         this.$editor.addEventListener('keyup', () => {
             this.setAttribute('sourceCode', this.$editor.value);
@@ -38,6 +38,11 @@ class HcJsEditor extends HTMLElement {
             const event = new CustomEvent(eventType, {detail: {type: eventType, sourceCode: this.$editor.value}});
             this.dispatchEvent(event)
         });
+    }
+    _ensureCharsAreNotHtmlEncoded(html) {
+        const doc = document.createElement('pre');
+        doc.innerHTML = html;
+        return doc.innerText;
     }
 }
 
