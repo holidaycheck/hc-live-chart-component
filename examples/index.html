@@ -29,10 +29,8 @@
   <h2>A purely embedded version</h2>
   
   <hc-live-chart>
-    <textarea slot="sourceCode">
 const resources = window.performance.getEntriesByType('resource');
 return resources.map(r => ({key: r.name, value: r.transferSize}));
-    </textarea>
   </hc-live-chart>
   
   <h2>Embedded inside of a formatted text flow</h2>
@@ -43,10 +41,8 @@ return resources.map(r => ({key: r.name, value: r.transferSize}));
     a flowing text. There is surrounding text that tries to show how this component behaves when being embedded in
     a flowing text.
     <hc-live-chart>
-      <textarea slot="sourceCode">
 const resources = window.performance.getEntriesByType('resource');
 return resources.map(r => ({key: r.name, value: r.transferSize}));
-      </textarea>
     </hc-live-chart>
     There is surrounding text that tries to show how this component behaves when being embedded in
     a flowing text. There is surrounding text that tries to show how this component behaves when being embedded in
