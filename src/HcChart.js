@@ -33,7 +33,7 @@ class HcChart extends HTMLElement {
     connectedCallback() {
         Chart.defaults.global.animation.duration = 100;
         this.createChart();
-        this.updateChartData();
+        this.updateChartData([]);
     }
     createChart() {
         this.chartData = {datasets: [{label: 'no label', backgroundColor: chartColors}]};
