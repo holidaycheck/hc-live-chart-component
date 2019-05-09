@@ -16,9 +16,9 @@
   <h2>The element rendered without any data</h2>
   <p>
     before the editor
-    <hc-js-editor style="width: 30%; height: 100px;">
-() => console.log(1);
-    </hc-js-editor>
+    <div style="height: 4rem; border: 1px solid red;">
+      <hc-js-editor style="width: 30%; height: 100%;">() => console.log(1);</hc-js-editor>
+    </div>  
     <pre id="event-log"></pre>
     after the editor<br/>
     <button onclick="copySourcecode()">Get out source code</button>
