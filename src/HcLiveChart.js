@@ -13,16 +13,11 @@ template.innerHTML = `
     }
     hc-js-editor {
         flex: 1;
-        border: 1px solid black;
-
-        font-family: monospace;
-        font-size: 1.2rem;
         width: auto;
         height: auto;
     }
     hc-chart {
         flex: 1;
-        border: 1px solid black;
     }
     .jsError {
     	position: absolute;

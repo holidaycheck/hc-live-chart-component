@@ -12,7 +12,8 @@ template.innerHTML = `
         padding: var(--margin);
         font-family: monospace;
         border: 0;
-        background: lightyellow;
+        background: inherit;
+        font-size: inherit;;
     }
     </style>
     <textarea></textarea>
