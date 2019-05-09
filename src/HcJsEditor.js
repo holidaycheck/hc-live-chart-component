@@ -39,9 +39,7 @@ class HcJsEditor extends HTMLElement {
         this.setAttribute('sourceCode', this.$editor.value);
         this.$editor.addEventListener('keyup', () => {
             this.setAttribute('sourceCode', this.$editor.value);
-            const eventType = 'change';
-            const event = new CustomEvent(eventType, {detail: {type: eventType, sourceCode: this.$editor.value}});
-            this.dispatchEvent(event)
+            this._dispatchChangeEvent();
         });
     }
     setSourceCode(sourceCode) {
@@ -49,6 +47,12 @@ class HcJsEditor extends HTMLElement {
     }
     _setSourceCode(sourceCode) {
         this.$editor.value = this._ensureCharsAreNotHtmlEncoded(sourceCode);
+        this._dispatchChangeEvent();
+    }
+    _dispatchChangeEvent() {
+        const eventType = 'change';
+        const event = new CustomEvent(eventType, {detail: {type: eventType, sourceCode: this.$editor.value}});
+        this.dispatchEvent(event)
     }
     _ensureCharsAreNotHtmlEncoded(html) {
         const doc = document.createElement('pre');
