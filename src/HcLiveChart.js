@@ -14,11 +14,11 @@ template.innerHTML = `
     hc-js-editor {
         flex: 1;
         border: 1px solid black;
-        
+
         font-family: monospace;
         font-size: 1.2rem;
-        width: 100%;
-        height: 100%;
+        width: auto;
+        height: auto;
     }
     hc-chart {
         flex: 1;
