@@ -5,7 +5,7 @@ template.innerHTML = `
     	display: block;
     }
     </style>
-    <canvas></canvas>
+    <canvas style="height: 100%; width: 100%;"></canvas>
 `;
 
 const chartColors = Object.values({
