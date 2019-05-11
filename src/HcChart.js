@@ -32,6 +32,7 @@ class HcChart extends HTMLElement {
     }
     connectedCallback() {
         Chart.defaults.global.animation.duration = 100;
+        Chart.defaults.global.legend.display = false;
         this.createChart();
         this.updateChartData([]);
     }
