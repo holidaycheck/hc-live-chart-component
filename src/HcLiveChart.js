@@ -76,7 +76,11 @@ class HcLiveChart extends HTMLElement {
         this.updateChartData(result);
     }
     updateChartData(data) {
-        this.$chart.updateChartData(data);
+        if ('start' in data[0] && 'end' in data[0]) {
+            this.$chart.updateWaterfallData(data);
+        } else {
+            this.$chart.updateChartData(data);
+        }
     }
 }
 
