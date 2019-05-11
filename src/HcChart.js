@@ -37,7 +37,7 @@ class HcChart extends HTMLElement {
         this.updateChartData([]);
     }
     createChart() {
-        this.chartData = {datasets: [{label: 'no label', backgroundColor: chartColors}]};
+        this.chartData = {datasets: [{}]};
         this.chart = new Chart(this.$chart, {
             type: 'horizontalBar',
             data: this.chartData,
