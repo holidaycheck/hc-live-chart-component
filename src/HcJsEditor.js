@@ -3,13 +3,11 @@ template.innerHTML = `
     <style>
     :host {
     	display: block;
-    	--margin: 0.7rem;
     }
     textarea {
-        width: calc(100% - var(--margin) * 2);
-        height: calc(100% - var(--margin) * 2);
+        width: 100%;
+        height: 100%;
         margin: 0;
-        padding: var(--margin);
         font-family: monospace;
         border: 0;
         background: inherit;
