@@ -20,5 +20,23 @@
     <hc-chart style="width: 30%; height: 20%;"></hc-chart>
     after the chart
   </p>
+
+  <h2>The element rendered with "updateWaterfallData()"</h2>
+  <p>
+    before the chart
+    <hc-chart id="duration-chart" style="width: 30%; height: 20%;"></hc-chart>
+    after the chart
+    <script>
+      setTimeout(() => {
+      const chart = document.querySelector('#duration-chart');
+      chart.updateWaterfallData([
+        {label: 'time 1', start: 0, end: 10},
+        {label: 'time 2', start: 10, end: 20},
+        {label: 'time 3', start: 5, end: 20},
+      ]);
+
+      }, 1000);
+    </script>
+  </p>
 </body>
 </html>

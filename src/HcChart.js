@@ -37,7 +37,7 @@ class HcChart extends HTMLElement {
         this.updateChartData([]);
     }
     createChart() {
-        this.chartData = {datasets: [{}]};
+        this.chartData = {datasets: [{backgroundColor: chartColors}]};
         this.chart = new Chart(this.$chart, {
             type: 'horizontalBar',
             data: this.chartData,
@@ -66,6 +66,28 @@ class HcChart extends HTMLElement {
         chartable.labels = data.map(({key}) => key.length > 30 ? ('...' + key.substring(key.length-30)) : key);
         //chartable.datasets[0].label = '# ???';
         chartable.datasets[0].data = data.map(d => d.value);
+        this.chart.update();
+    }
+    /**
+    *	data: [{start: 5, end 10, label: "something"}, ...]
+    */
+    updateWaterfallData(data) {
+		this.chart.options.scales.yAxes = [{stacked: true}];
+		this.chart.options.scales.xAxes = [{stacked: true}];
+		this.chart.options.tooltips = {
+            callbacks: {
+                label: ({datasetIndex, index}, {datasets}) => {
+                	if (datasetIndex === 0) return ''; // no tooltip item
+                	return `duration: ` + (datasets[1].data[index] - datasets[0].data[index]).toFixed(1); 
+                }
+            }
+		};
+
+        const chartable = this.chartData;
+        chartable.labels = data.map(s => s.label);
+        chartable.datasets = [{data: [], backgroundColor: 'transparent'}, {data: [], backgroundColor: chartColors}];
+        chartable.datasets[0].data = data.map(s => s.start);
+        chartable.datasets[1].data = data.map(s => s.end);
         this.chart.update();
     }
 }
