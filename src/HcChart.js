@@ -66,7 +66,7 @@ class HcChart extends HTMLElement {
     }
     updateChartData(data) {
         const chartable = this.chartData;
-        chartable.labels = data.map(({key}) => key.length > 30 ? ('...' + key.substring(key.length-30)) : key);
+        chartable.labels = data.map(({label}) => label.length > 30 ? ('...' + label.substring(label.length-30)) : label);
         //chartable.datasets[0].label = '# ???';
         chartable.datasets[0].data = data.map(d => d.value);
         this.chart.update();

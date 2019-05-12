@@ -21,7 +21,7 @@
     This component allows to edit any JS in a (simple) editor and renders the 
     result in a chart aside. The result needs to be returned using <em>return</em>
     statement, just like in a function, and it needs to be a simple array of objects
-    with the properties <em>key</em> and <em>value</em>, where the value should
+    with the properties <em>label</em> and <em>value</em>, where the value should
     be a number that can be used as the height for a bar in the bar chart, which is
     used to render the result by default.
   </p>
@@ -29,7 +29,7 @@
   <h2>A purely embedded version</h2>
   
   <hc-live-chart>const resources = window.performance.getEntriesByType('resource');
-return resources.map(r => ({key: r.name, value: r.transferSize}));
+return resources.map(r => ({label: r.name, value: r.requestStart}));
   </hc-live-chart>
   
   <h2>Embedded inside of a formatted text flow</h2>
@@ -39,7 +39,7 @@ return resources.map(r => ({key: r.name, value: r.transferSize}));
       a flowing text. There is surrounding text that tries to show how this component behaves when being embedded in
       a flowing text.
       <hc-live-chart style="padding: 0.5rem; background: lightyellow; font-size: 1.2rem;">const resources = window.performance.getEntriesByType('resource');
-  return resources.map(r => ({key: r.name, value: r.transferSize}));
+  return resources.map(r => ({label: r.name, value: r.transferSize}));
       </hc-live-chart>
       There is surrounding text that tries to show how this component behaves when being embedded in
       a flowing text. There is surrounding text that tries to show how this component behaves when being embedded in
