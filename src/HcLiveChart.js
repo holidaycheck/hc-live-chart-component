@@ -57,12 +57,25 @@ class HcLiveChart extends HTMLElement {
     get $jsError() {
         return this._selectInShadowRoot('.jsError');
     }
+    
     connectedCallback() {
-        this.$jsEditor.addEventListener('change', ({detail}) => {
-            this.evaluateAndRerenderChart(detail.sourceCode);
-        });
+        this._connectAllEvents();
         this.$jsEditor.setSourceCode(this.innerHTML);
     }
+    disconnectedCallback() {
+        this._disconnectAllEvents();
+    }
+    _defineEventHandlerFunctions() {
+        this._editorChangeFn = ({detail}) => { this.evaluateAndRerenderChart(detail.sourceCode); };
+    }
+    _connectAllEvents() {
+        this._defineEventHandlerFunctions();
+        this.$jsEditor.addEventListener('change', this._editorChangeFn);
+    }    
+    _disconnectAllEvents() {
+        this.$jsEditor.removeEventListener('change', this._editorChangeFn);
+    }
+    
     evaluateAndRerenderChart(editedSourceCode) {
     	let result;
     	try {

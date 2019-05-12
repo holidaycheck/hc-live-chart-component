@@ -35,16 +35,35 @@ class HcJsEditor extends HTMLElement {
     connectedCallback() {
         this.setSourceCode(this.innerHTML);
         this.setAttribute('sourceCode', this.$editor.value);
-        this.$editor.addEventListener('keyup', (e) => {
+        this._connectAllEvents();
+    }
+    disconnectedCallback() {
+        this._disconnectAllEvents();
+    }
+    _defineEventHandlerFunctions() {
+        // Stop propogation, so no other website functions (like a menu, etc.) are triggered while editing.
+        this._editorKeyupFn = (e) => {
             this.setAttribute('sourceCode', this.$editor.value);
             this._dispatchChangeEvent();
             e.stopPropagation();
-        });
-        // Stop propogation, so no other website functions (like a menu, etc.) are triggered while editing.
-        this.$editor.addEventListener('keydown', (e) => {
+        };
+        this._editorKeydownFn = (e) => {
             e.stopPropagation();
-        });
+        };
     }
+    _connectAllEvents() {
+        this._defineEventHandlerFunctions();
+        this.$editor.addEventListener('keyup', this._editorKeyupFn);
+        this.$editor.addEventListener('keydown', this._editorKeydownFn);
+    }    
+    _disconnectAllEvents() {
+        this.$editor.removeEventListener('keyup', this._editorKeyupFn);
+        this.$editor.removeEventListener('keydown', this._editorKeydownFn);
+    }
+    
+    
+    
+    
     setSourceCode(sourceCode) {
         this._setSourceCode(sourceCode);
     }

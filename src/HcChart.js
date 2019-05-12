@@ -41,6 +41,9 @@ class HcChart extends HTMLElement {
         this.createChart();
         this.updateChartData([]);
     }
+    disconnectedCallback() {
+       this.chart.destroy(); 
+    }
     createChart() {
         this.chartData = {datasets: [{backgroundColor: chartColors}]};
         const defaultXAxesOptions = {
