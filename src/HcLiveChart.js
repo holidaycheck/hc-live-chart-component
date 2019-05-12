@@ -21,7 +21,7 @@ template.innerHTML = `
     }
     .jsError {
     	position: absolute;
-    	margin-top: calc(-1rem - var(--margin));
+    	margin-top: calc(-1.3rem - 2 * var(--margin));
     	right: 50%;
     	background: rgba(255,0,0,0.7);
     	color: white;
