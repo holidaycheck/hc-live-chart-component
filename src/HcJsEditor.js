@@ -55,15 +55,11 @@ class HcJsEditor extends HTMLElement {
         this._defineEventHandlerFunctions();
         this.$editor.addEventListener('keyup', this._editorKeyupFn);
         this.$editor.addEventListener('keydown', this._editorKeydownFn);
-    }    
+    }
     _disconnectAllEvents() {
         this.$editor.removeEventListener('keyup', this._editorKeyupFn);
         this.$editor.removeEventListener('keydown', this._editorKeydownFn);
     }
-    
-    
-    
-    
     setSourceCode(sourceCode) {
         this._setSourceCode(sourceCode);
     }

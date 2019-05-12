@@ -42,7 +42,7 @@ class HcChart extends HTMLElement {
         this.updateChartData([]);
     }
     disconnectedCallback() {
-       this.chart.destroy(); 
+        this.chart.destroy(); 
     }
     createChart() {
         this.chartData = {datasets: [{backgroundColor: chartColors}]};
