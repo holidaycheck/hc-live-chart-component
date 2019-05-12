@@ -10,12 +10,12 @@
       happen asynchronously and multiple times (needs to ensure to also disconnect/clean up when "reconnecting" new code!!!!)
       this would also be useful, since Safari does NOT render all bars on first render, so we would need to do some
       "onload" waiting and render then (try repro by chanigng the JS code in safari and the chart updates with new bars)
+- [ ] show only the first line of the error message (didn't get a multiline error message to show, maybe this is irrelevant???)
 - [ ] ???
 
 # version 1
 - [x] show errors in JS
 - [x] make the labels easier to read when they are long - shortened labels to 30chars
 - [x] build + deploy via travis
-- [ ] show only the first line of the error message
 - [x] make index.html useful in Safari
 - [ ] make it work embedded in HC tech blog
