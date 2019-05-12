@@ -59,6 +59,13 @@ class HcChart extends HTMLElement {
     /**
     *	data: [{value 10, label: "something"}, ...]
     */
+    isValidChartData(data) {
+        if (!Array.isArray(data)) return false;
+        if (data.length === 0) return true;
+        const first = data[0];
+        if (typeof first !== 'object') return false;
+        return 'label' in first && 'value' in first;
+    }
     updateChartData(data) {
         const chartable = this.chartData;
         chartable.labels = data.map(({label}) => label.length > 30 ? ('...' + label.substring(label.length-30)) : label);
@@ -70,6 +77,13 @@ class HcChart extends HTMLElement {
     /**
     *	data: [{start: 5, end 10, label: "something"}, ...]
     */
+    isValidWaterfallData(data) {
+        if (!Array.isArray(data)) return false;
+        if (data.length === 0) return true;
+        const first = data[0];
+        if (typeof first !== 'object') return false;
+        return 'label' in first && 'start' in first && 'end' in first;
+    }
     updateWaterfallData(data) {
         // Using stacked bar chart for showing this we have to do some calculations for
         // showing the values properly. E.g. a value from 10 to 25 we must pass the data to the 

@@ -76,10 +76,13 @@ class HcLiveChart extends HTMLElement {
         this.updateChartData(result);
     }
     updateChartData(data) {
-        if ('start' in data[0] && 'end' in data[0]) {
+        if (this.$chart.isValidWaterfallData(data)) {
             this.$chart.updateWaterfallData(data);
-        } else {
+        } else if (this.$chart.isValidChartData(data)) {
             this.$chart.updateChartData(data);
+        } else {
+            this.$jsError.innerHTML = 'The data should be either [{label: "xxxx", value: 42}, ...] or [{label: "xxxx", start: 23, end: 23}, ...]';
+            this.$jsError.classList.remove('hidden');
         }
     }
 }
