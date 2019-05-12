@@ -11,6 +11,7 @@
       this would also be useful, since Safari does NOT render all bars on first render, so we would need to do some
       "onload" waiting and render then (try repro by chanigng the JS code in safari and the chart updates with new bars)
 - [ ] show only the first line of the error message (didn't get a multiline error message to show, maybe this is irrelevant???)
+- [ ] handle resize in Chart (`chart.resize()` ftw)
 - [ ] ???
 
 # version 1
