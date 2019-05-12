@@ -54,7 +54,7 @@ return resources.map(r => ({label: r.name, value: r.requestStart}));
       a flowing text. There is surrounding text that tries to show how this component behaves when being embedded in
       a flowing text.
       <hc-live-chart style="padding: 0.5rem; background: lightyellow; font-size: 1.2rem;">const resources = window.performance.getEntriesByType('resource');
-  return resources.map(r => ({label: r.name, start: r.requestStart, end: r.responseEnd}));
+  return resources.map(r => ({label: r.name, start: r.startTime, end: r.responseEnd}));
       </hc-live-chart>
       There is surrounding text that tries to show how this component behaves when being embedded in
       a flowing text. There is surrounding text that tries to show how this component behaves when being embedded in
