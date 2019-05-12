@@ -18,6 +18,11 @@ const chartColors = Object.values({
 	grey: 'rgb(201, 203, 207)'
 });
 
+const shortenLabel = _s => {
+    const s = String(_s);
+    return s.length > 30 ? ('...' + s.substring(s.length-30)) : s;
+};
+
 class HcChart extends HTMLElement {
     constructor() {
         super();
@@ -68,7 +73,7 @@ class HcChart extends HTMLElement {
     }
     updateChartData(data) {
         const chartable = this.chartData;
-        chartable.labels = data.map(({label}) => label.length > 30 ? ('...' + label.substring(label.length-30)) : label);
+        chartable.labels = data.map(({label}) => shortenLabel(label));
         //chartable.datasets[0].label = '# ???';
         chartable.datasets[0].data = data.map(d => d.value);
         this.chart.update();
@@ -93,7 +98,7 @@ class HcChart extends HTMLElement {
         // The +1 and -1 magic is just so that when start===end a bar is visible.
         this._waterfallOptions();
         const chartable = this.chartData;
-        chartable.labels = data.map(s => s.label);
+        chartable.labels = data.map(s => shortenLabel(s.label));
         chartable.datasets = [{data: [], backgroundColor: 'transparent'}, {data: [], backgroundColor: chartColors}];
         chartable.datasets[0].data = data.map(s => s.start);
         chartable.datasets[1].data = data.map(s => s.end + 1 - s.start); // subtract start, since we show stacked values
