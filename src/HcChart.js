@@ -38,28 +38,19 @@ class HcChart extends HTMLElement {
     }
     createChart() {
         this.chartData = {datasets: [{backgroundColor: chartColors}]};
+        const defaultXAxesOptions = {
+                                ticks: {
+                                    beginAtZero: true
+                                },
+                                minBarLength: 5,
+                            };
         this.chart = new Chart(this.$chart, {
             type: 'horizontalBar',
             data: this.chartData,
             options: {
                 scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        },
-                    }],
-                    xAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        },
-                        barPercentage: 0.5,
-                        barThickness: 6,
-                        maxBarThickness: 8,
-                        minBarLength: 2,
-                        gridLines: {
-                            offsetGridLines: true
-                        },
-                    }]
+                    yAxes: [Object.assign({}, defaultXAxesOptions)],
+                    xAxes: [Object.assign({}, defaultXAxesOptions)],
                 }
             }
         });
