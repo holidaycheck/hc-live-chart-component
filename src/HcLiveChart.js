@@ -10,6 +10,7 @@ template.innerHTML = `
         height: auto;
         width: auto;
         justify-content: center;
+        overflow: hidden;
     }
     hc-js-editor {
         flex: 1;
