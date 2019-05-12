@@ -8,15 +8,19 @@ template.innerHTML = `
     <canvas style="height: 100%; width: 100%;"></canvas>
 `;
 
-const chartColors = Object.values({
-	hcblue: 'rgba(0, 88, 163, 1.000)',
-	hcyellow: 'rgba(251, 215, 58, 1.000)',
-	hcfishorange: 'rgba(255, 88, 0, 1.000)',
-	hcdarkblue: 'rgba(2, 57, 103, 1.000)',
-	hcawardblue: 'rgba(47, 160, 196, 1.000)',
-	purple: 'rgb(153, 102, 255)',
-	grey: 'rgb(201, 203, 207)'
-});
+const chartColors = (bars = 0) => {
+    const colors = Object.values({
+        hcblue: 'rgba(0, 88, 163, 1.000)',
+        hcyellow: 'rgba(251, 215, 58, 1.000)',
+        hcfishorange: 'rgba(255, 88, 0, 1.000)',
+        hcdarkblue: 'rgba(2, 57, 103, 1.000)',
+        hcawardblue: 'rgba(47, 160, 196, 1.000)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(201, 203, 207)'
+    });
+    const numColors = bars === 0 ? colors.length : bars;
+    return (new Array(numColors)).fill(0).map((_, idx) => colors[idx % colors.length]);
+};
 
 const shortenLabel = _s => {
     const s = String(_s);
@@ -45,7 +49,7 @@ class HcChart extends HTMLElement {
         this.chart.destroy(); 
     }
     createChart() {
-        this.chartData = {datasets: [{backgroundColor: chartColors}]};
+        this.chartData = {datasets: [{backgroundColor: chartColors()}]};
         const defaultXAxesOptions = {
                                 ticks: {
                                     beginAtZero: true
@@ -77,7 +81,7 @@ class HcChart extends HTMLElement {
     updateChartData(data) {
         const chartable = this.chartData;
         chartable.labels = data.map(({label}) => shortenLabel(label));
-        //chartable.datasets[0].label = '# ???';
+        chartable.datasets = [{data: [], backgroundColor: chartColors(data.length)}];
         chartable.datasets[0].data = data.map(d => d.value);
         this.chart.update();
     }
@@ -102,7 +106,7 @@ class HcChart extends HTMLElement {
         this._waterfallOptions();
         const chartable = this.chartData;
         chartable.labels = data.map(s => shortenLabel(s.label));
-        chartable.datasets = [{data: [], backgroundColor: 'transparent'}, {data: [], backgroundColor: chartColors}];
+        chartable.datasets = [{data: [], backgroundColor: 'transparent'}, {data: [], backgroundColor: chartColors(data.length)}];
         chartable.datasets[0].data = data.map(s => s.start);
         chartable.datasets[1].data = data.map(s => s.end + 1 - s.start); // subtract start, since we show stacked values
         this.chart.update();

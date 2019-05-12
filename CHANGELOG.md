@@ -23,3 +23,4 @@
   - [x] show errors in the data format, to not throw errors when trying to draw the chart
   - [x] dont bubble key events from the editor, the techblog uses them to open the menu and other strange stuff
   - [x] don't throw error when label is not a string
+  - [x] more colors, when lots of bars are shown
