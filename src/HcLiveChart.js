@@ -60,7 +60,9 @@ class HcLiveChart extends HTMLElement {
     
     connectedCallback() {
         this._connectAllEvents();
-        this.$jsEditor.setSourceCode(this.innerHTML);
+        setTimeout(() => {
+            this.$jsEditor.setSourceCode(this.innerHTML);
+        }, 0);
     }
     disconnectedCallback() {
         this._disconnectAllEvents();
