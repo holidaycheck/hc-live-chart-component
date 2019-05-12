@@ -6,6 +6,9 @@
 - [ ] store previous data in localstorage and show them using another dataset, in the same chart, so be able to compare
 - [ ] allow an attribute "unit" which may take values like "seconds", "bytes", etc. and each knows how to scale them 
       e.g. "minutes", "hours", "kB" or "MB", etc.
+- [ ] use `renderWaterfallChart()` and `renderBarChart()` instead of `return`, so rendering can also 
+      happen asynchronously and multiple times (needs to ensure to also disconnect/clean up when "reconnecting" new code!!!!)
+- [ ] ???
 
 # version 1
 - [x] show errors in JS
@@ -14,5 +17,3 @@
 - [ ] show only the first line of the error message
 - [ ] make index.html useful in Safari
 - [ ] make it work embedded in HC tech blog
-- [ ] use `renderWaterfallChart()` and `renderBarChart()` instead of `return`, so rendering can also 
-      happen asynchronously and multiple times 
