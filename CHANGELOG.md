@@ -18,5 +18,6 @@
 - [x] make the labels easier to read when they are long - shortened labels to 30chars
 - [x] build + deploy via travis
 - [x] make index.html useful in Safari
-- [x] show errors in the data format, to not throw errors when trying to draw the chart
 - [ ] make it work embedded in HC tech blog
+  - [x] show errors in the data format, to not throw errors when trying to draw the chart
+  - [x] dont bubble key events from the editor, the techblog uses them to open the menu and other strange stuff

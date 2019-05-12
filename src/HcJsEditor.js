@@ -35,9 +35,14 @@ class HcJsEditor extends HTMLElement {
     connectedCallback() {
         this.setSourceCode(this.innerHTML);
         this.setAttribute('sourceCode', this.$editor.value);
-        this.$editor.addEventListener('keyup', () => {
+        this.$editor.addEventListener('keyup', (e) => {
             this.setAttribute('sourceCode', this.$editor.value);
             this._dispatchChangeEvent();
+            e.stopPropagation();
+        });
+        // Stop propogation, so no other website functions (like a menu, etc.) are triggered while editing.
+        this.$editor.addEventListener('keydown', (e) => {
+            e.stopPropagation();
         });
     }
     setSourceCode(sourceCode) {
