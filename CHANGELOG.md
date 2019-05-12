@@ -17,5 +17,5 @@
 - [x] make the labels easier to read when they are long - shortened labels to 30chars
 - [x] build + deploy via travis
 - [ ] show only the first line of the error message
-- [ ] make index.html useful in Safari
+- [x] make index.html useful in Safari
 - [ ] make it work embedded in HC tech blog
