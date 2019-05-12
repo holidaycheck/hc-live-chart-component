@@ -8,6 +8,8 @@
       e.g. "minutes", "hours", "kB" or "MB", etc.
 - [ ] use `renderWaterfallChart()` and `renderBarChart()` instead of `return`, so rendering can also 
       happen asynchronously and multiple times (needs to ensure to also disconnect/clean up when "reconnecting" new code!!!!)
+      this would also be useful, since Safari does NOT render all bars on first render, so we would need to do some
+      "onload" waiting and render then (try repro by chanigng the JS code in safari and the chart updates with new bars)
 - [ ] ???
 
 # version 1
