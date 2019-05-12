@@ -85,19 +85,20 @@ class HcChart extends HTMLElement {
         // chart as 10 in the first dataset and 15 in the second dataset. The charts render the 
         // relative amount (15), not the absolute number (25).
         // And in the tooltip we have to make sure to calculate back :).
+        // The +1 and -1 magic is just so that when start===end a bar is visible.
         this._waterfallOptions();
         const chartable = this.chartData;
         chartable.labels = data.map(s => s.label);
         chartable.datasets = [{data: [], backgroundColor: 'transparent'}, {data: [], backgroundColor: chartColors}];
         chartable.datasets[0].data = data.map(s => s.start);
-        chartable.datasets[1].data = data.map(s => s.end - s.start); // subtract start, since we show stacked values
+        chartable.datasets[1].data = data.map(s => s.end + 1 - s.start); // subtract start, since we show stacked values
         this.chart.update();
     }
     _waterfallOptions() {
         const tooltipLabel = ({datasetIndex, index}, {datasets}) => {
             if (datasetIndex === 0) return ''; // no tooltip item
             const start = datasets[0].data[index];
-            const end = datasets[1].data[index] + start; // add the start again, since we have stacked values
+            const end = datasets[1].data[index] + start - 1; // add the start again, since we have stacked values
             return `duration: ${(end - start).toFixed(0)} (${start.toFixed(0)}...${end.toFixed(0)})`;
         };
         
