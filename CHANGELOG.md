@@ -24,3 +24,6 @@
   - [x] dont bubble key events from the editor, the techblog uses them to open the menu and other strange stuff
   - [x] don't throw error when label is not a string
   - [x] more colors, when lots of bars are shown
+- [ ] rerender only when sourcecode changed (prevent useless re-renders of the chart)
+- [ ] make the code useful also when the chart is not shown (the `return` actually looks awkward if no chart is rendered)
+- [ ] render the code editor and chart below one another  
