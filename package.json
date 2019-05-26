@@ -9,9 +9,11 @@
   "scripts": {
     "start": "ws --cors.origin=* --port 9898",
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "npm run _build:component",
+    "build": "npm run _build:components",
     "_test": "kavun {scripts,src}/*.spec.js --reporter=minimal",
-    "_build:component": "parcel build src/HcLiveChart.js --no-cache --no-source-maps --experimental-scope-hoisting",
+    "_build:components": "npm run _build:component:HcLiveChart && npm run _build:component:HcChart",
+    "_build:component:HcChart": "parcel build src/HcChart.js --no-cache --no-source-maps --experimental-scope-hoisting",
+    "_build:component:HcLiveChart": "parcel build src/HcLiveChart.js --no-cache --no-source-maps --experimental-scope-hoisting",
     "release": "npm version major",
     "_releasable": "to-do-list-checker",
     "preversion": "npm run _releasable && npm test && npm run build && git add -A dist"
