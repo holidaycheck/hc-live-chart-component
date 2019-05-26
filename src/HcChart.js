@@ -46,11 +46,11 @@ class HcChart extends HTMLElement {
     createChart() {
         this.chartData = {datasets: [{backgroundColor: chartColors()}]};
         const defaultXAxesOptions = {
-                                ticks: {
-                                    beginAtZero: true
-                                },
-                                minBarLength: 5,
-                            };
+            ticks: {
+                beginAtZero: true
+            },
+            minBarLength: 5,
+        };
         this.chart = new Chart(this.$chart, {
             type: 'horizontalBar',
             data: this.chartData,
