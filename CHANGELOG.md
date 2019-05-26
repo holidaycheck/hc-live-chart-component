@@ -26,4 +26,6 @@
   - [x] more colors, when lots of bars are shown
 - [ ] rerender only when sourcecode changed (prevent useless re-renders of the chart)
 - [ ] make the code useful also when the chart is not shown (the `return` actually looks awkward if no chart is rendered)
-- [ ] render the code editor and chart below one another  
+- [ ] render the code editor and chart below one another
+- [ ] load the Chart.js from vendor or CDN, depending on on/offline and load it on demand and not in the HTML file
+- [ ] allow including the <hc-chart> as a block element anywhere
