@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>hc-chart</title>
-<!--  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>-->
-  <script src="../vendor/chart.js@2.8.0/dist/Chart.min.js"></script>
   <script type="module" src="../src/HcChart.js"></script>
 </head>
 <body>
@@ -27,21 +25,21 @@
   <hc-chart id="chart-with-height" style="height: 5rem;"></hc-chart>
   <p>after the chart</p>
   <script type="text/javascript">
-    setTimeout(() => {
-        const chart = document.querySelector('#chart-with-height');
-        chart.updateChartData([
-            {label: 'one', value: 1},
-            {label: 'two', value: 2},
-            {label: 'three', value: 3},
-            {label: 'four', value: 4},
-            {label: 'five', value: 5},
-            {label: 'six', value: 6},
-            {label: 'seven', value: 7},
-            {label: 'eight', value: 8},
-            {label: 'nine', value: 9},
-            {label: 'ten', value: 10},
-        ]);
-    }, 100);
+    window.customElements.whenDefined('hc-chart').then(() => {
+      const chart = document.querySelector('#chart-with-height');
+      chart.updateChartData([
+          {label: 'one', value: 1},
+          {label: 'two', value: 2},
+          {label: 'three', value: 3},
+          {label: 'four', value: 4},
+          {label: 'five', value: 5},
+          {label: 'six', value: 6},
+          {label: 'seven', value: 7},
+          {label: 'eight', value: 8},
+          {label: 'nine', value: 9},
+          {label: 'ten', value: 10},
+      ]);
+    })    
   </script>
   
 
@@ -52,16 +50,16 @@
     <hc-chart id="duration-chart" style="width: 30%; height: 5rem;"></hc-chart>
     after the chart
     <script>
-      setTimeout(() => {
-      const chart = document.querySelector('#duration-chart');
-      chart.updateWaterfallData([
-        {label: 'time 1', start: 0, end: 10},
-        {label: 'time 2', start: 10, end: 20},
-        {label: 'time 3', start: 5, end: 20},
-        {label: 'time 4', start: 10, end: 10},
-      ]);
-
-      }, 1000);
+      window.customElements.whenDefined('hc-chart').then(() => {
+        const chart = document.querySelector('#duration-chart');
+        chart.updateWaterfallData([
+          {label: 'time 1', start: 0, end: 10},
+          {label: 'time 2', start: 10, end: 20},
+          {label: 'time 3', start: 5, end: 20},
+          {label: 'time 4', start: 10, end: 10},
+        ]);
+  
+      });
     </script>
   </p>
 </body>

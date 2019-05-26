@@ -124,4 +124,26 @@ class HcChart extends HTMLElement {
     }
 }
 
-customElements.define('hc-chart', HcChart);
+const chartLibraryUrls = {
+    online: 'https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js',
+    offline: '../vendor/chart.js@2.8.0/dist/Chart.min.js',
+};
+
+const loadChartLibrary = ({onLoaded}) => {
+    const isOnline = navigator.onLine;
+    const chartLibUrl = isOnline 
+        ? chartLibraryUrls.online
+        : chartLibraryUrls.offline;
+    const scriptTag = document.createElement('script');
+    scriptTag.onload = onLoaded;
+    scriptTag.setAttribute('type', 'text/javascript');
+    scriptTag.setAttribute('src', chartLibUrl)
+    document.head.insertBefore(scriptTag, document.head.childNodes[0]);
+};
+const defineCustomElement = () => {
+    customElements.define('hc-chart', HcChart);
+};
+
+loadChartLibrary({onLoaded: defineCustomElement});
+
+
