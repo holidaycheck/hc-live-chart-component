@@ -8,24 +8,48 @@
   <script type="module" src="../src/HcChart.js"></script>
 </head>
 <body>
-  <h1>hc-chart web component</h1>
+  <h1>&lt;hc-chart&gt; web component</h1>
 
   <p>
     This is a simple chart component, that is isolated out of the hc-live-chart
     component, in order to simpler maintain this component separately.
   </p>
 
-  <h2>The element rendered without any data</h2>
+  <h2>The bare element (no data, no styling)</h2>
   <p>
-    before the chart
-    <hc-chart style="width: 30%; height: 20%;"></hc-chart>
-    after the chart
+    before the chart 
+    <hc-chart></hc-chart>
+    after the chart  
   </p>
+
+  <h2>The element, with given height</h2>
+  <p>before the chart</p> 
+  <hc-chart id="chart-with-height" style="height: 5rem;"></hc-chart>
+  <p>after the chart</p>
+  <script type="text/javascript">
+    setTimeout(() => {
+        const chart = document.querySelector('#chart-with-height');
+        chart.updateChartData([
+            {label: 'one', value: 1},
+            {label: 'two', value: 2},
+            {label: 'three', value: 3},
+            {label: 'four', value: 4},
+            {label: 'five', value: 5},
+            {label: 'six', value: 6},
+            {label: 'seven', value: 7},
+            {label: 'eight', value: 8},
+            {label: 'nine', value: 9},
+            {label: 'ten', value: 10},
+        ]);
+    }, 100);
+  </script>
+  
 
   <h2>The element rendered with "updateWaterfallData()"</h2>
   <p>
-    before the chart
-    <hc-chart id="duration-chart" style="width: 30%; height: 20%;"></hc-chart>
+    before the chart, before the chart, before the chart, before the chart, 
+    before the chart, before the chart, before the chart, before the chart, 
+    <hc-chart id="duration-chart" style="width: 30%; height: 5rem;"></hc-chart>
     after the chart
     <script>
       setTimeout(() => {
