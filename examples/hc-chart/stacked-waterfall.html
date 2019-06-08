@@ -20,9 +20,9 @@
   <script type="text/javascript">
     window.customElements.whenDefined('hc-chart').then(() => {
       const chart = document.querySelector('#simple-chart');
-      chart.updateChartData([
-          {label: 'one', values: [1,2,3,4]},
-          {label: 'two', value: [2,4,6]},
+      chart.updateStackedWaterfallData([
+          {label: 'http://localhost/index.html', values: [10,2,1,1]},
+          {label: 'http://localhost/main.css', values: [2,3,1,2]},
           // {label: 'three', value: 3},
           // {label: 'four', value: 4},
           // {label: 'five', value: 5},
