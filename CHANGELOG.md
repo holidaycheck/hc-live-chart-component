@@ -15,7 +15,10 @@
 - [ ] rerender only when sourcecode changed (prevent useless re-renders of the chart)
 - [ ] make the code useful also when the chart is not shown (the `return` actually looks awkward if no chart is rendered)
 - [ ] render the code editor and chart below one another
-- [ ] ???
+
+# version 2
+- [ ] make `npm release` and `npm publish` work, publishing to npm
+- [ ] provide a stacked waterfall chart 
 
 # version 1
 - [x] show errors in JS
