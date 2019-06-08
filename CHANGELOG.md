@@ -17,7 +17,7 @@
 - [ ] render the code editor and chart below one another
 - [ ] ???
 
-# version 1
+# version 2
 - [x] show errors in JS
 - [x] make the labels easier to read when they are long - shortened labels to 30chars
 - [x] build + deploy via travis
