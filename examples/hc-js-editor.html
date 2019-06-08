@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>hc-js-editor</title>
+  <script type="module" src="../HcJsEditor.js"></script>
+</head>
+<body>
+  <h1>hc-js-editor web component</h1>
+
+  <p>
+    This is a simple JS editor component, that is isolated out of the hc-live-chart
+    component, in order to simpler maintain this component separately.
+  </p>
+
+  <h2>The element rendered without any data</h2>
+  <p>
+    before the editor
+    <div style="height: 4rem; border: 1px solid red;">
+      <hc-js-editor style="width: 30%; height: 100%;">() => console.log(1);</hc-js-editor>
+    </div>  
+    <pre id="event-log"></pre>
+    after the editor<br/>
+    <button onclick="copySourcecode()">Get out source code</button>
+    The sourcecode read via the &lt;hc-js-editor&gt; attribute <em>sourceCode</em>
+    <pre id="read-source-code" style="background: lightyellow;"></pre>
+    <script>
+        const $editor = document.querySelector('hc-js-editor');
+        const copySourcecode = () => {
+            const source = $editor.getAttribute('sourceCode');
+            document.querySelector('#read-source-code').innerHTML = source;
+        };
+        $editor.addEventListener('change', (e) => {
+            document.querySelector('#event-log').innerHTML = `js-editor fired "change" event: ${JSON.stringify({detail: e.detail})}`;
+        });
+    </script>
+  </p>
+</body>
+</html>

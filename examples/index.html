@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>-->
+  <script src="../vendor/chart.js@2.8.0/dist/Chart.min.js"></script>
+</head>
+<title>HC Live Chart</title>
+
+<script type="module" src="../HcLiveChart.js"></script>
+<style>
+  body {
+    font-family: Verdana;
+  }
+</style>
+<body>
+  <a href="index.html">index.html</a><br />
+  <a href="hc-chart.html">hc-chart.html</a><br />
+  <a href="hc-js-editor.html">hc-js-editor.html</a><br />
+
+  <h1>HC Live Chart</h1>
+  <p>
+    This component allows to edit any JS in a (simple) editor and renders the 
+    result in a chart aside. The result needs to be returned using <em>return</em>
+    statement, just like in a function, and it needs to be a simple array of objects
+    with the properties <em>label</em> and <em>value</em>, where the value should
+    be a number that can be used as the height for a bar in the bar chart, which is
+    used to render the result by default.
+  </p>
+
+  <h2>A purely embedded version</h2>
+  
+  <hc-live-chart>const resources = window.performance.getEntriesByType('resource');
+return resources.map(r => ({label: r.name, value: r.requestStart}));
+  </hc-live-chart>
+  
+  <h2>Embedded inside of a formatted text flow</h2>
+  <div style="display: flex; justify-content: center;">
+    <p style="flex: 0.8">
+      There is surrounding text that tries to show how this component behaves when being embedded in
+      a flowing text. There is surrounding text that tries to show how this component behaves when being embedded in
+      a flowing text.
+      <hc-live-chart style="padding: 0.5rem; background: lightyellow; font-size: 1.2rem;">const resources = window.performance.getEntriesByType('resource');
+  return resources.map(r => ({label: r.name, value: r.duration}));
+      </hc-live-chart>
+      There is surrounding text that tries to show how this component behaves when being embedded in
+      a flowing text. There is surrounding text that tries to show how this component behaves when being embedded in
+      a flowing text.
+    </p>
+  </div>
+  
+  <h2>Waterfall data</h2>
+  <div style="display: flex; justify-content: center;">
+    <p style="flex: 0.6">
+      There is surrounding text that tries to show how this component behaves when being embedded in
+      a flowing text. There is surrounding text that tries to show how this component behaves when being embedded in
+      a flowing text.
+      <hc-live-chart style="padding: 0.5rem; background: lightyellow; font-size: 1.2rem;">const resources = window.performance.getEntriesByType('resource');
+  return resources.map(r => ({label: r.name, start: r.startTime, end: r.responseEnd}));
+      </hc-live-chart>
+      There is surrounding text that tries to show how this component behaves when being embedded in
+      a flowing text. There is surrounding text that tries to show how this component behaves when being embedded in
+      a flowing text.
+    </p>
+  </div>
+</body>
