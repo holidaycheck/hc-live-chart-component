@@ -12,6 +12,9 @@
       "onload" waiting and render then (try repro by chanigng the JS code in safari and the chart updates with new bars)
 - [ ] show only the first line of the error message (didn't get a multiline error message to show, maybe this is irrelevant???)
 - [ ] handle resize in Chart (`chart.resize()` ftw)
+- [ ] rerender only when sourcecode changed (prevent useless re-renders of the chart)
+- [ ] make the code useful also when the chart is not shown (the `return` actually looks awkward if no chart is rendered)
+- [ ] render the code editor and chart below one another
 - [ ] ???
 
 # version 1
@@ -24,8 +27,5 @@
   - [x] dont bubble key events from the editor, the techblog uses them to open the menu and other strange stuff
   - [x] don't throw error when label is not a string
   - [x] more colors, when lots of bars are shown
-- [ ] rerender only when sourcecode changed (prevent useless re-renders of the chart)
-- [ ] make the code useful also when the chart is not shown (the `return` actually looks awkward if no chart is rendered)
-- [ ] render the code editor and chart below one another
 - [x] load the Chart.js from vendor or CDN, depending on on/offline and load it on demand and not in the HTML file
 - [x] allow including the <hc-chart> as a block element anywhere
