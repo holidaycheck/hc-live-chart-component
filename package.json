@@ -17,17 +17,12 @@
     "release": "npm version major",
     "_releasable": "to-do-list-checker",
     "preversion": "npm run _releasable && npm test && npm run build && git add -A dist"
-    
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "esm": "^3.0.74",
-    "hamjest": "^3.2.0",
-    "hamjest-spy": "^4.0.0",
-    "kavun": "^3.0.0",
     "local-web-server": "^2.6.0",
     "parcel-bundler": "^1.9.7",
-    "to-do-list-checker": "^3.0.0"
+    "to-do-list-checker": "^4.0.0"
   }
 }
