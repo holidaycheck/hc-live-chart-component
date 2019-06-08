@@ -19,7 +19,7 @@
     "_build:component:HcLiveChart": "parcel build src/HcLiveChart.js --no-cache --no-source-maps --experimental-scope-hoisting",
     "release": "mkdir -p dist; cp CHANGELOG.md dist/; npm version major",
     "_releasable": "to-do-list-checker",
-    "preversion": "npm run _releasable && npm test && npm run build && git add -A dist",
+    "preversion": "npm run _releasable && npm test && npm run build",
     "postversion": "npm run _copyVersioned && npm run _copyLatest"
   },
   "author": "",
