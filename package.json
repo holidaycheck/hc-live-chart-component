@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "ws --cors.origin=* --port 9898 --rewrite '/src/examples/* -> /examples/$1'",
-    "test": "echo \"No tests yet. Some just don't need them ... it seems :).\" && exit 0",
+    "test": "kavun `bash -c 'ls src/*.spec.js'` --reporter=minimal",
     "prebuild": "npm run _releasable && npm test",
     "build": "npm run _build:components && npm run _copyExamples",
     "_copyExamples": "cp -r ./examples dist/examples",
@@ -21,6 +21,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "hamjest": "^3.2.3",
+    "kavun": "^3.0.0",
     "local-web-server": "^2.6.0",
     "parcel-bundler": "^1.9.7",
     "to-do-list-checker": "^4.0.0"
