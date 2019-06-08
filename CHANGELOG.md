@@ -31,5 +31,5 @@
 - [x] allow including the <hc-chart> as a block element anywhere
 - [ ] make releaseable
   - [x] make examples work under `src/examples` without moving them there
-  - [ ] examples must be made work in dist too
+  - [x] examples must be made work in dist too
   - [ ] it should create versioned files into dist
