@@ -137,7 +137,7 @@ const loadChartLibrary = ({onLoaded}) => {
     const scriptTag = document.createElement('script');
     scriptTag.onload = onLoaded;
     scriptTag.setAttribute('type', 'text/javascript');
-    scriptTag.setAttribute('src', chartLibUrl)
+    scriptTag.setAttribute('src', chartLibUrl);
     document.head.insertBefore(scriptTag, document.head.childNodes[0]);
 };
 const defineCustomElement = () => {
