@@ -138,7 +138,6 @@ class HcChart extends HTMLElement {
         chartable.datasets[2].data = data.map(s => s.values[2]);
         chartable.datasets[3].data = data.map(s => s.values[3]);
         chartable.datasets[4].data = data.map(s => s.values[4]);
-        //chartable.datasets[5].data = data.map(s => s.values[4]);
         this.chart.update();
     }
     _stackedWaterfallOptions() {
