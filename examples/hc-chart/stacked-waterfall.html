@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>hc-chart stacked waterfall</title>
+  <script type="module" src="../../HcChart.js"></script>
+</head>
+<body>
+  <h1>&lt;hc-chart&gt; web component using "updateStackedWaterfallData()"</h1>
+
+  <p>
+    The stacked waterfall chart is a waterfall, where every bar is made up of multiple chunks, which comes
+    quite handy to show the various parts of resource timings when showing browser resource loading charts.
+  </p>
+
+  <h2>Simple</h2>
+  <p>before the chart</p> 
+  <hc-chart id="simple-chart"></hc-chart>
+  <p>after the chart</p>
+  <script type="text/javascript">
+    window.customElements.whenDefined('hc-chart').then(() => {
+      const chart = document.querySelector('#simple-chart');
+      chart.updateChartData([
+          {label: 'one', values: [1,2,3,4]},
+          {label: 'two', value: [2,4,6]},
+          // {label: 'three', value: 3},
+          // {label: 'four', value: 4},
+          // {label: 'five', value: 5},
+          // {label: 'six', value: 6},
+          // {label: 'seven', value: 7},
+          // {label: 'eight', value: 8},
+          // {label: 'nine', value: 9},
+          // {label: 'ten', value: 10},
+      ]);
+    })    
+  </script>
+
+  </body>
+</html>
