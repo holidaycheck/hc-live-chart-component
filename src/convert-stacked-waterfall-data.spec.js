@@ -6,17 +6,16 @@ const convert = (data, colors = noop) => {
     const labels = data.map(({label}) => label);
     const datasets = [];
     const diffValues = data.map(({values}) => values.map((value, idx, all) => idx === 0 ? value : value - all[idx - 1]));
-    if (data.length === 6) {
+    if (data.length) {
         datasets.push({data: diffValues.map(v => v[0]), backgroundColor: 'transparent'});
-        datasets.push({data: diffValues.map(v => v[1]), backgroundColor: colors(0)});
-        datasets.push({data: diffValues.map(v => v[2]), backgroundColor: colors(1)});
-        datasets.push({data: diffValues.map(v => v[3]), backgroundColor: colors(2)});
-    } else if (data.length) {
-        datasets.push({data: data.map(({values}) => values[0]), backgroundColor: 'transparent'});
-        if (data[0].values.length > 1 || (data[1] && data[1].values.length > 1) || (data[2] && data[2].values.length > 1)) {
-            const areInteger = (value1, value2) => Number.isInteger(value1) && Number.isInteger(value2);
-            const toChartableValue = ({values}) => areInteger(values[0], values[1]) ? values[1] - values[0] : undefined;
-            datasets.push({data: data.map(toChartableValue), backgroundColor: colors(0)});
+        if (data.length === 6) {
+            datasets.push({data: diffValues.map(v => v[1]), backgroundColor: colors(0)});
+            datasets.push({data: diffValues.map(v => v[2]), backgroundColor: colors(1)});
+            datasets.push({data: diffValues.map(v => v[3]), backgroundColor: colors(2)});
+        } else if (data.length) {
+            if (data[0].values.length > 1 || (data[1] && data[1].values.length > 1) || (data[2] && data[2].values.length > 1)) {
+                datasets.push({data: diffValues.map(v => v[1]), backgroundColor: colors(0)});
+            }
         }
     }
     return {labels, datasets: datasets};
