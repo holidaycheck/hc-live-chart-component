@@ -32,4 +32,3 @@
 - [x] make releaseable
   - [x] make examples work under `src/examples` without moving them there
   - [x] examples must be made work in dist too
-  - [x] it should create versioned files into dist
