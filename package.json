@@ -9,7 +9,10 @@
   "scripts": {
     "start": "ws --cors.origin=* --port 9898 --rewrite '/src/examples/* -> /examples/$1'",
     "test": "echo \"No tests yet. Some just don't need them ... it seems :).\" && exit 0",
-    "build": "npm run _build:components && cp -r ./examples dist/examples",
+    "build": "npm run _build:components && npm run _copyVersioned && npm run _copyLatest && npm run _copyExamples",
+    "_copyExamples": "cp -r ./examples dist/examples",
+    "_copyVersioned": "mkdir -p dist/$npm_package_version && cp dist/*.js dist/$npm_package_version",
+    "_copyLatest": "mkdir -p dist/latest && cp dist/*.js dist/latest",
     "_test": "kavun {scripts,src}/*.spec.js --reporter=minimal",
     "_build:components": "npm run _build:component:HcLiveChart && npm run _build:component:HcChart",
     "_build:component:HcChart": "parcel build src/HcChart.js --no-cache --no-source-maps --experimental-scope-hoisting",

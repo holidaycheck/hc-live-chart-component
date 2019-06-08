@@ -29,7 +29,7 @@
   - [x] more colors, when lots of bars are shown
 - [x] load the Chart.js from vendor or CDN, depending on on/offline and load it on demand and not in the HTML file
 - [x] allow including the <hc-chart> as a block element anywhere
-- [ ] make releaseable
+- [x] make releaseable
   - [x] make examples work under `src/examples` without moving them there
   - [x] examples must be made work in dist too
-  - [ ] it should create versioned files into dist
+  - [x] it should create versioned files into dist
