@@ -7,7 +7,7 @@ const convert = (data, colors = noop) => {
     const datasets = [];
     if (data.length) {
         datasets.push({data: data.map(({values}) => values[0]), backgroundColor: 'transparent'});
-        if (data[0].values.length > 1) {
+        if (data[0].values.length > 1 || (data[1] && data[1].values.length > 1) || (data[2] && data[2].values.length > 1)) {
             const areInteger = (value1, value2) => Number.isInteger(value1) && Number.isInteger(value2);
             const toChartableValue = ({values}) => areInteger(values[0], values[1]) ? values[1] - values[0] : undefined;
             datasets.push({data: data.map(toChartableValue), backgroundColor: colors(0)});
@@ -21,7 +21,7 @@ describe('Convert "stacked waterfall" values to chartable data', () => {
         const noChartableData = {labels: [], datasets: []};
         assertThat(convert([]), equalTo(noChartableData));      
     });
-    describe('one value, returns always just the start of the first bar, and is transparent', () => {
+    describe('(at most) one value, returns always just the start of the first bar, and is transparent', () => {
         it('for one data point', () => {
             const data = [
                 {label: 'one', values: [1]},
@@ -51,8 +51,9 @@ describe('Convert "stacked waterfall" values to chartable data', () => {
             assertThat(convert(data), equalTo(chartableData));      
         });
     });
-    describe('two value, returns one bar in one color', () => {
+    describe('(at most) two values, returns one bar in one color', () => {
         const colors = (index) => ['color-one'][index];
+        
         it('for one data point', () => {
             const data = [
                 {label: 'one', values: [1,2]},
@@ -91,6 +92,20 @@ describe('Convert "stacked waterfall" values to chartable data', () => {
                 {data: [1,undefined,2], backgroundColor: 'color-one'},
             ];
             const chartableData = {labels: ['one', 'none', 'three'], datasets};
+            assertThat(convert(data, colors), equalTo(chartableData));      
+        });
+        it('for multiple data points, where some have no value or one', () => {
+            const data = [
+                {label: 'none', values: []},
+                {label: 'one', values: [2]},
+                {label: 'two', values: [1,2]},
+            ];
+
+            const datasets = [
+                {data: [undefined,2,1], backgroundColor: 'transparent'},
+                {data: [undefined,undefined,1], backgroundColor: 'color-one'},
+            ];
+            const chartableData = {labels: ['none', 'one', 'two'], datasets};
             assertThat(convert(data, colors), equalTo(chartableData));      
         });
     });
