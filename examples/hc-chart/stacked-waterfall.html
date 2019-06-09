@@ -19,21 +19,32 @@
   <p>after the chart</p>
   <script type="text/javascript">
     window.customElements.whenDefined('hc-chart').then(() => {
-      const chart = document.querySelector('#simple-chart');
-      chart.updateStackedWaterfallData([
-          {label: 'nada', values: []},
-          {label: 'http://localhost/index.html', values: [1,12,13,19]},
-          {label: 'http://localhost/main.css', values: [2,3,5,6]},
-          // {label: 'three', value: 3},
-          // {label: 'four', value: 4},
-          // {label: 'five', value: 5},
-          // {label: 'six', value: 6},
-          // {label: 'seven', value: 7},
-          // {label: 'eight', value: 8},
-          // {label: 'nine', value: 9},
-          // {label: 'ten', value: 10},
-      ]);
-    })    
+      window.addEventListener('load', () => {
+        const chart = document.querySelector('#simple-chart');
+        const resources = [
+            ...window.performance.getEntriesByType('navigation'),
+            ...window.performance.getEntriesByType('resource')
+        ];
+        const chartable = resources.map(resource => ({
+          label: resource.name,
+          values: [
+              resource.startTime,
+//              resource.redirectStart,
+//              resource.redirectEnd,
+               resource.fetchStart,
+              // resource.domainLookupStart,
+              // resource.domainLookupEnd,
+               resource.connectStart,
+              // resource.secureConnectionStart,
+              // resource.connectEnd,
+               resource.requestStart,
+               resource.responseStart,
+              resource.responseEnd,
+          ],  
+        }));
+        chart.updateStackedWaterfallData(chartable);
+      });
+    });  
   </script>
 
   </body>
