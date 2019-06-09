@@ -5,23 +5,12 @@ const noop = () => {};
 const convert = (data, colors = noop) => {
     const labels = data.map(({label}) => label);
     const datasets = [];
-    const diffValues = data.map(({values}) => values.map((value, idx, all) => idx === 0 ? value : value - all[idx - 1]));
     if (data.length) {
+        const diffValues = data.map(({values}) => values.map((value, idx, all) => idx === 0 ? value : value - all[idx - 1]));
         datasets.push({data: diffValues.map(v => v[0]), backgroundColor: 'transparent'});
-        if (data.length === 6) {
-            datasets.push({data: diffValues.map(v => v[1]), backgroundColor: colors(0)});
-            datasets.push({data: diffValues.map(v => v[2]), backgroundColor: colors(1)});
-            datasets.push({data: diffValues.map(v => v[3]), backgroundColor: colors(2)});
-        } else  if (data.length === 8) {
-            datasets.push({data: diffValues.map(v => v[1]), backgroundColor: colors(0)});
-            datasets.push({data: diffValues.map(v => v[2]), backgroundColor: colors(1)});
-            datasets.push({data: diffValues.map(v => v[3]), backgroundColor: colors(2)});
-            datasets.push({data: diffValues.map(v => v[4]), backgroundColor: colors(3)});
-        } else {
-            if (data[0].values.length > 1 || (data[1] && data[1].values.length > 1) || (data[2] && data[2].values.length > 1)) {
-                datasets.push({data: diffValues.map(v => v[1]), backgroundColor: colors(0)});
-            }
-        }
+        const mostDataPoints = diffValues.reduce((last, cur) => cur.length > last ? cur.length : last, 0);
+        for (let i = 0; i < mostDataPoints-1; i++)
+            datasets.push({data: diffValues.map(v => v[i + 1]), backgroundColor: colors(i)});
     }
     return {labels, datasets: datasets};
 };
