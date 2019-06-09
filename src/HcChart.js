@@ -1,3 +1,5 @@
+import {dataToChartable} from './stacked-waterfall.js';
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -8,18 +10,18 @@ template.innerHTML = `
     <canvas style="height: 100%; width: 100%;"></canvas>
 `;
 
+const defaultColors = Object.values({
+    hcblue: 'rgba(0, 88, 163, 1.000)',
+    hcyellow: 'rgba(251, 215, 58, 1.000)',
+    hcfishorange: 'rgba(255, 88, 0, 1.000)',
+    hcdarkblue: 'rgba(2, 57, 103, 1.000)',
+    hcawardblue: 'rgba(47, 160, 196, 1.000)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(201, 203, 207)'
+});
 const chartColors = (bars = 0) => {
-    const colors = Object.values({
-        hcblue: 'rgba(0, 88, 163, 1.000)',
-        hcyellow: 'rgba(251, 215, 58, 1.000)',
-        hcfishorange: 'rgba(255, 88, 0, 1.000)',
-        hcdarkblue: 'rgba(2, 57, 103, 1.000)',
-        hcawardblue: 'rgba(47, 160, 196, 1.000)',
-        purple: 'rgb(153, 102, 255)',
-        grey: 'rgb(201, 203, 207)'
-    });
-    const numColors = bars === 0 ? colors.length : bars;
-    return (new Array(numColors)).fill(0).map((_, idx) => colors[idx % colors.length]);
+    const numColors = bars === 0 ? defaultColors.length : bars;
+    return (new Array(numColors)).fill(0).map((_, idx) => defaultColors[idx % defaultColors.length]);
 };
 
 class HcChart extends HTMLElement {
@@ -124,20 +126,22 @@ class HcChart extends HTMLElement {
     }
     updateStackedWaterfallData(data) {
         this._stackedWaterfallOptions();
-        const chartable = this.chartData;
-        chartable.labels = data.map(({label}) => label);
-        chartable.datasets = [
-            {data: [], backgroundColor: 'transparent'}, 
-            {data: [], backgroundColor: 'blue'},
-            {data: [], backgroundColor: 'red'},
-            {data: [], backgroundColor: 'green'},
-            {data: [], backgroundColor: 'grey'},
-        ];
-        chartable.datasets[0].data = data.map(s => s.values[0]);
-        chartable.datasets[1].data = data.map(s => s.values[1]);
-        chartable.datasets[2].data = data.map(s => s.values[2]);
-        chartable.datasets[3].data = data.map(s => s.values[3]);
-        chartable.datasets[4].data = data.map(s => s.values[4]);
+        const chartData = dataToChartable(data, idx => defaultColors[idx]);
+        this.chartData.labels = chartData.labels;
+        this.chartData.datasets = chartData.datasets;
+        // chartable.labels = data.map(({label}) => label);
+        // chartable.datasets = [
+        //     {data: [], backgroundColor: 'transparent'}, 
+        //     {data: [], backgroundColor: 'blue'},
+        //     {data: [], backgroundColor: 'red'},
+        //     {data: [], backgroundColor: 'green'},
+        //     {data: [], backgroundColor: 'grey'},
+        // ];
+        // chartable.datasets[0].data = data.map(s => s.values[0]);
+        // chartable.datasets[1].data = data.map(s => s.values[1]);
+        // chartable.datasets[2].data = data.map(s => s.values[2]);
+        // chartable.datasets[3].data = data.map(s => s.values[3]);
+        // chartable.datasets[4].data = data.map(s => s.values[4]);
         this.chart.update();
     }
     _stackedWaterfallOptions() {
