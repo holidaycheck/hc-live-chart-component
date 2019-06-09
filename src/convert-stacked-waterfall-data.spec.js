@@ -1,19 +1,9 @@
 import {describe, it, xit} from 'kavun';
 import {assertThat, equalTo} from 'hamjest';
+import {dataToChartable} from './stacked-waterfall.js';
 
 const noop = () => {};
-const convert = (data, colors = noop) => {
-    const labels = data.map(({label}) => label);
-    const datasets = [];
-    if (data.length) {
-        const diffValues = data.map(({values}) => values.map((value, idx, all) => idx === 0 ? value : value - all[idx - 1]));
-        datasets.push({data: diffValues.map(v => v[0]), backgroundColor: 'transparent'});
-        const mostDataPoints = diffValues.reduce((last, cur) => cur.length > last ? cur.length : last, 0);
-        for (let i = 0; i < mostDataPoints-1; i++)
-            datasets.push({data: diffValues.map(v => v[i + 1]), backgroundColor: colors(i)});
-    }
-    return {labels, datasets: datasets};
-};
+const convert = (data, colors = noop) => dataToChartable(data, colors);
 
 describe('Convert "stacked waterfall" values to chartable data', () => {
     const colors = (index) => ['color-one', 'color-two', 'color-three', 'color-four',][index];
