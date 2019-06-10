@@ -9,7 +9,7 @@
   "scripts": {
     "start": "ws --cors.origin=* --port 9898 --rewrite '/src/examples/* -> /examples/$1'",
     "test": "kavun `bash -c 'ls src/*.spec.js'` --reporter=minimal",
-    "prebuild": "npm run _releasable && npm test",
+    "prebuild": "npm test",
     "build": "npm run _build:components && npm run _copyExamples",
     "_copyExamples": "cp -r ./examples dist/examples",
     "_test": "kavun {scripts,src}/*.spec.js --reporter=minimal",
