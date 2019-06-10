@@ -18,7 +18,7 @@
 
 # version 2
 - [ ] make `npm release` and `npm publish` work, publishing to npm
-- [ ] provide a stacked waterfall chart 
+- [x] provide a stacked waterfall chart 
 
 # version 1
 - [x] show errors in JS
