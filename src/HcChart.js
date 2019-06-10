@@ -124,19 +124,22 @@ class HcChart extends HTMLElement {
             }
 		};
     }
-    updateStackedWaterfallData(data) {
-        this._stackedWaterfallOptions();
+    updateStackedWaterfallData(data, {valueLabels = []} = {}) {
+        this._stackedWaterfallOptions(valueLabels);
         const chartData = dataToChartable(data, idx => defaultColors[idx % defaultColors.length]);
         this.chartData.labels = chartData.labels;
         this.chartData.datasets = chartData.datasets;
         this.chart.update();
     }
-    _stackedWaterfallOptions() {
+    _stackedWaterfallOptions(valueLabels) {
         const tooltipLabel = ({datasetIndex, index}, {datasets}) => {
             // No tooltip item for the first value, it's rendered transparent, and it is the offset of the stacked bar.
             if (datasetIndex === 0) return '';
 
-            const renderNoneZeroValues = value => value === 0 ? '' : value;
+            const renderNoneZeroValues = (value) => {
+                const label = valueLabels[datasetIndex] || '';
+                return value === 0 ? '' : `${value} ${label}`;
+            };
             return renderNoneZeroValues(datasets[datasetIndex].data[index]);
         };
         this.chart.options.scales.yAxes = [{stacked: true}];

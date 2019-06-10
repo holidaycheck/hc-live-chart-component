@@ -42,7 +42,8 @@
               resource.responseEnd,
           ],  
         }));
-        chart.updateStackedWaterfallData(chartable);
+        const valueLabels = ['startTime', 'redirectStart', 'redirectEnd', 'fetchStart', 'domainLookupStart', 'domainLookupEnd', 'connectStart', 'secureConnectionStart', 'connectEnd', 'requestStart', 'responseStart', 'responseEnd'];
+        chart.updateStackedWaterfallData(chartable, {valueLabels});
       });
     });  
   </script>
