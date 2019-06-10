@@ -126,7 +126,7 @@ class HcChart extends HTMLElement {
     }
     updateStackedWaterfallData(data) {
         this._stackedWaterfallOptions();
-        const chartData = dataToChartable(data, idx => defaultColors[idx]);
+        const chartData = dataToChartable(data, idx => defaultColors[idx % defaultColors.length]);
         this.chartData.labels = chartData.labels;
         this.chartData.datasets = chartData.datasets;
         this.chart.update();
