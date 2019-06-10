@@ -129,33 +129,11 @@ class HcChart extends HTMLElement {
         const chartData = dataToChartable(data, idx => defaultColors[idx]);
         this.chartData.labels = chartData.labels;
         this.chartData.datasets = chartData.datasets;
-        // chartable.labels = data.map(({label}) => label);
-        // chartable.datasets = [
-        //     {data: [], backgroundColor: 'transparent'}, 
-        //     {data: [], backgroundColor: 'blue'},
-        //     {data: [], backgroundColor: 'red'},
-        //     {data: [], backgroundColor: 'green'},
-        //     {data: [], backgroundColor: 'grey'},
-        // ];
-        // chartable.datasets[0].data = data.map(s => s.values[0]);
-        // chartable.datasets[1].data = data.map(s => s.values[1]);
-        // chartable.datasets[2].data = data.map(s => s.values[2]);
-        // chartable.datasets[3].data = data.map(s => s.values[3]);
-        // chartable.datasets[4].data = data.map(s => s.values[4]);
         this.chart.update();
     }
     _stackedWaterfallOptions() {
-        const removeFirstLabelFromTooltip = ({datasetIndex, index}, {datasets}) => {
-            if (datasetIndex === 0) return ''; // no tooltip item
-            return datasets[datasetIndex].data[index];
-        };
         this.chart.options.scales.yAxes = [{stacked: true}];
         this.chart.options.scales.xAxes = [{stacked: true}];
-        this.chart.options.tooltips = {
-            callbacks: {
-                label: removeFirstLabelFromTooltip,
-            }
-		};
     }
 }
 

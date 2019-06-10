@@ -15,7 +15,7 @@
 
   <h2>Simple</h2>
   <p>before the chart</p> 
-  <hc-chart id="simple-chart"></hc-chart>
+  <hc-chart id="simple-chart" style="height: 15rem"></hc-chart>
   <p>after the chart</p>
   <script type="text/javascript">
     window.customElements.whenDefined('hc-chart').then(() => {
@@ -29,16 +29,16 @@
           label: resource.name,
           values: [
               resource.startTime,
-//              resource.redirectStart,
-//              resource.redirectEnd,
-               resource.fetchStart,
-              // resource.domainLookupStart,
-              // resource.domainLookupEnd,
-               resource.connectStart,
-              // resource.secureConnectionStart,
-              // resource.connectEnd,
-               resource.requestStart,
-               resource.responseStart,
+              resource.redirectStart || resource.startTime,
+              resource.redirectEnd || resource.startTime,
+              resource.fetchStart,
+              resource.domainLookupStart || resource.fetchStart,
+              resource.domainLookupEnd || resource.fetchStart,
+              resource.connectStart,
+              resource.secureConnectionStart || resource.connectStart,
+              resource.connectEnd,
+              resource.requestStart,
+              resource.responseStart,
               resource.responseEnd,
           ],  
         }));
