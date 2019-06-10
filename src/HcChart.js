@@ -132,8 +132,20 @@ class HcChart extends HTMLElement {
         this.chart.update();
     }
     _stackedWaterfallOptions() {
+        const tooltipLabel = ({datasetIndex, index}, {datasets}) => {
+            // No tooltip item for the first value, it's rendered transparent, and it is the offset of the stacked bar.
+            if (datasetIndex === 0) return '';
+
+            const renderNoneZeroValues = value => value === 0 ? '' : value;
+            return renderNoneZeroValues(datasets[datasetIndex].data[index]);
+        };
         this.chart.options.scales.yAxes = [{stacked: true}];
         this.chart.options.scales.xAxes = [{stacked: true}];
+        this.chart.options.tooltips = {
+            callbacks: {
+                label: tooltipLabel,
+            }
+		};
     }
 }
 
