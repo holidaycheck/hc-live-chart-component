@@ -154,7 +154,7 @@ class HcChart extends HTMLElement {
 
 const chartLibraryUrls = {
     online: 'https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js',
-    offline: '../vendor/chart.js@2.8.0/dist/Chart.min.js',
+    offline: '/vendor/chart.js@2.8.0/dist/Chart.min.js',
 };
 
 const loadChartLibrary = ({onLoaded}) => {
