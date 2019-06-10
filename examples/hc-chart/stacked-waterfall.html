@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>hc-chart stacked waterfall</title>
+  <script type="module" src="../../HcChart.js"></script>
+</head>
+<body>
+  <h1>&lt;hc-chart&gt; web component using "updateStackedWaterfallData()"</h1>
+
+  <p>
+    The stacked waterfall chart is a waterfall, where every bar is made up of multiple chunks, which comes
+    quite handy to show the various parts of resource timings when showing browser resource loading charts.
+  </p>
+
+  <h2>Simple</h2>
+  <p>before the chart</p> 
+  <hc-chart id="simple-chart" style="height: 15rem"></hc-chart>
+  <p>after the chart</p>
+  <script type="text/javascript">
+    window.customElements.whenDefined('hc-chart').then(() => {
+      window.addEventListener('load', () => {
+        const chart = document.querySelector('#simple-chart');
+        const resources = [
+            ...window.performance.getEntriesByType('navigation'),
+            ...window.performance.getEntriesByType('resource')
+        ];
+        const chartable = resources.map(resource => ({
+          label: resource.name,
+          values: [
+              resource.startTime,
+              resource.redirectStart || resource.startTime,
+              resource.redirectEnd || resource.startTime,
+              resource.fetchStart,
+              resource.domainLookupStart || resource.fetchStart,
+              resource.domainLookupEnd || resource.fetchStart,
+              resource.connectStart,
+              resource.secureConnectionStart || resource.connectStart,
+              resource.connectEnd,
+              resource.requestStart,
+              resource.responseStart,
+              resource.responseEnd,
+          ],  
+        }));
+        const valueLabels = ['started after ${value} ms (startTime)', 'redirectStart took ${value} ms', 'redirectEnd', 'fetchStart', 'domainLookupStart', 'domainLookupEnd', 'connectStart', 'secureConnectionStart', 'connectEnd', 'requestStart took ${value} ms', 'responseStart', 'responseEnd'];
+        chart.updateStackedWaterfallData(chartable, {valueLabels, precision: 0});
+      });
+    });  
+  </script>
+
+  </body>
+</html>

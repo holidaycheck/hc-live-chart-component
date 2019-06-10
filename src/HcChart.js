@@ -1,3 +1,5 @@
+import {dataToChartable} from './stacked-waterfall.js';
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -8,18 +10,18 @@ template.innerHTML = `
     <canvas style="height: 100%; width: 100%;"></canvas>
 `;
 
+const defaultColors = Object.values({
+    hcblue: 'rgba(0, 88, 163, 1.000)',
+    hcyellow: 'rgba(251, 215, 58, 1.000)',
+    hcfishorange: 'rgba(255, 88, 0, 1.000)',
+    hcdarkblue: 'rgba(2, 57, 103, 1.000)',
+    hcawardblue: 'rgba(47, 160, 196, 1.000)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(201, 203, 207)'
+});
 const chartColors = (bars = 0) => {
-    const colors = Object.values({
-        hcblue: 'rgba(0, 88, 163, 1.000)',
-        hcyellow: 'rgba(251, 215, 58, 1.000)',
-        hcfishorange: 'rgba(255, 88, 0, 1.000)',
-        hcdarkblue: 'rgba(2, 57, 103, 1.000)',
-        hcawardblue: 'rgba(47, 160, 196, 1.000)',
-        purple: 'rgb(153, 102, 255)',
-        grey: 'rgb(201, 203, 207)'
-    });
-    const numColors = bars === 0 ? colors.length : bars;
-    return (new Array(numColors)).fill(0).map((_, idx) => colors[idx % colors.length]);
+    const numColors = bars === 0 ? defaultColors.length : bars;
+    return (new Array(numColors)).fill(0).map((_, idx) => defaultColors[idx % defaultColors.length]);
 };
 
 class HcChart extends HTMLElement {
@@ -122,11 +124,39 @@ class HcChart extends HTMLElement {
             }
 		};
     }
+    updateStackedWaterfallData(data, options = {}) {
+        this._stackedWaterfallOptions(options);
+        const chartData = dataToChartable(data, idx => defaultColors[idx % defaultColors.length]);
+        this.chartData.labels = chartData.labels;
+        this.chartData.datasets = chartData.datasets;
+        this.chart.update();
+    }
+    _stackedWaterfallOptions({valueLabels = [], precision = -1}) {
+        const valueWithPrecision = value => precision < 0 ? value : Number(value).toFixed(precision);
+        const renderLabel = (valueLabel, value) => valueLabel.includes('${value}') 
+            ? valueLabel.replace('${value}', valueWithPrecision(value)) 
+            : `${value} ${valueLabel}`;
+        const renderValueLabel = (valueLabel, value) => valueLabel ? renderLabel(valueLabel, value) : value;
+        const tooltipLabel = ({datasetIndex, index}, {datasets}) => {
+            const renderNoneZeroValues = (value) => {
+                const valueLabel = valueLabels[datasetIndex] || '';
+                return valueLabel ? renderValueLabel(valueLabel, value) : (value ? value : '');
+            };
+            return renderNoneZeroValues(datasets[datasetIndex].data[index]);
+        };
+        this.chart.options.scales.yAxes = [{stacked: true}];
+        this.chart.options.scales.xAxes = [{stacked: true}];
+        this.chart.options.tooltips = {
+            callbacks: {
+                label: tooltipLabel,
+            }
+		};
+    }
 }
 
 const chartLibraryUrls = {
     online: 'https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js',
-    offline: '../vendor/chart.js@2.8.0/dist/Chart.min.js',
+    offline: '/vendor/chart.js@2.8.0/dist/Chart.min.js',
 };
 
 const loadChartLibrary = ({onLoaded}) => {
