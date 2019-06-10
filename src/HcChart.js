@@ -124,21 +124,23 @@ class HcChart extends HTMLElement {
             }
 		};
     }
-    updateStackedWaterfallData(data, {valueLabels = []} = {}) {
-        this._stackedWaterfallOptions(valueLabels);
+    updateStackedWaterfallData(data, options = {}) {
+        this._stackedWaterfallOptions(options);
         const chartData = dataToChartable(data, idx => defaultColors[idx % defaultColors.length]);
         this.chartData.labels = chartData.labels;
         this.chartData.datasets = chartData.datasets;
         this.chart.update();
     }
-    _stackedWaterfallOptions(valueLabels) {
+    _stackedWaterfallOptions({valueLabels = [], precision = -1}) {
+        const valueWithPrecision = value => precision < 0 ? value : Number(value).toFixed(precision);
+        const renderLabel = (valueLabel, value) => valueLabel.includes('${value}') 
+            ? valueLabel.replace('${value}', valueWithPrecision(value)) 
+            : `${value} ${valueLabel}`;
+        const renderValueLabel = (valueLabel, value) => valueLabel ? renderLabel(valueLabel, value) : value;
         const tooltipLabel = ({datasetIndex, index}, {datasets}) => {
-            // No tooltip item for the first value, it's rendered transparent, and it is the offset of the stacked bar.
-            if (datasetIndex === 0) return '';
-
             const renderNoneZeroValues = (value) => {
-                const label = valueLabels[datasetIndex] || '';
-                return value === 0 ? '' : `${value} ${label}`;
+                const valueLabel = valueLabels[datasetIndex] || '';
+                return valueLabel ? renderValueLabel(valueLabel, value) : (value ? value : '');
             };
             return renderNoneZeroValues(datasets[datasetIndex].data[index]);
         };
