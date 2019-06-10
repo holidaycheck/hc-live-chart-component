@@ -42,8 +42,8 @@
               resource.responseEnd,
           ],  
         }));
-        const valueLabels = ['startTime', 'redirectStart', 'redirectEnd', 'fetchStart', 'domainLookupStart', 'domainLookupEnd', 'connectStart', 'secureConnectionStart', 'connectEnd', 'requestStart', 'responseStart', 'responseEnd'];
-        chart.updateStackedWaterfallData(chartable, {valueLabels});
+        const valueLabels = ['started after ${value} ms (startTime)', 'redirectStart took ${value} ms', 'redirectEnd', 'fetchStart', 'domainLookupStart', 'domainLookupEnd', 'connectStart', 'secureConnectionStart', 'connectEnd', 'requestStart took ${value} ms', 'responseStart', 'responseEnd'];
+        chart.updateStackedWaterfallData(chartable, {valueLabels, precision: 0});
       });
     });  
   </script>
